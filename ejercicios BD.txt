@@ -1,0 +1,28 @@
+/*1.- Obtener el nombre de los negocios que son joyerias del estado de Nevada
+	2.- obtener el nombre de los estados en los que hay hoteles
+	3.- Obtener el nombre, direccion y ciudad de los negocios que tienen calificacion de 5 estrellas
+	4.- Obtener los negocios que tienen 1 estrella
+	5.- Obtener el nombre del negocio y sus caracteristicas (atributos) si es restaurant y tiene estacionamiento para bicicletas y es
+	de la ciudad de scottdale
+
+	*/
+/*select name, stars, stars*20 star100, city from business
+where city = 'scottdale' and
+name like '%mex%' or name like '%taco%'
+
+
+select top 100
+b.name Negocio, a.name Atributo, value Caracteristicas
+from business b, attribute a
+where b.id = a.business_id
+	and city = 'Las Vegas' and
+	(b.name like '%mex%' or b.name like '%taco%')
+order by b.name desc, a.name
+*/
+
+select distinct b.name, address from business b,
+	(select * from attribute
+	where name like '%restaurant%') restaurant
+where b.id = restaurant.business_id
+	and city ='Las Vegas'
+	order by b.name 

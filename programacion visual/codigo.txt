@@ -1,0 +1,138 @@
+import java.util.Base64;
+import java.util.*;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        //grid.getChildren().add(btn);
+        grid.setHgap(20);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(27, 27, 27, 27));
+
+        Label etiqueta = new Label();
+        etiqueta.setAlignment(Pos.CENTER);
+        etiqueta.setText("Palabra");
+
+        grid.add(etiqueta, 0, 1);
+
+        TextField palabra = new TextField();
+        grid.add(palabra, 1, 1);
+
+        Button factorial = new Button("Encriptar");
+        grid.add(factorial, 1, 2);
+
+        Label resultado = new Label();
+        grid.add(resultado, 2, 1);
+
+        factorial.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                Stack<String> pila = new Stack<String>();
+                Hashtable<String, String> tabla = new Hashtable<String, String>();
+
+                tabla.put("digito", "0123456789");
+                tabla.put("entero", "digito resto");
+                tabla.put("resto", "digito resto");
+                String palabras = palabra.getText();
+                String[] palabras2 = new String[1];
+                pila.push("entero");
+                int contador = 0;
+                boolean aceptado = true;
+                int valor = 0;
+
+                while (!pila.isEmpty() || contador <= palabras.length() - 1) {
+                    System.out.println("pila peek" + pila.peek());
+
+                    if (pila.peek().compareTo("digito") == 0) {
+                        pila.pop();
+                        String datos = tabla.get("digito");
+                        System.out.println("palabras(i)" + palabras.charAt(contador));
+                        System.out.println("lenght" + datos.length());
+                        for (int k = 0; k < datos.length(); k++) {
+                            System.out.println("datos(k)" + datos.charAt(k));
+                            if (datos.charAt(k) == palabras.charAt(contador)) {
+
+                                aceptado = true;
+                                k = datos.length();
+                            } else {
+                                aceptado = false;
+                            }
+                        }
+                        contador++;
+                    } else if (pila.peek().compareTo("entero") == 0) {
+                        pila.pop();
+                        palabras2 = tabla.get("entero").split(" ");
+                        for (String aux : palabras2) {
+                            pila.push(aux);
+                        }
+                    } else if (pila.peek().compareTo("resto") == 0) {
+
+                        if (aceptado == true && contador <= palabras.length() - 1 && palabras.charAt(contador) != '*') {
+                            pila.pop();
+                            pila.push("resto");
+                            pila.push("digito");
+                        } else {
+                            //aceptado = true;
+                            pila.removeAllElements();
+                        }
+                    } else {
+                        aceptado = false;
+                    }
+
+                    if (!aceptado) {
+                        contador = palabras.length() + 1;
+                    }
+                }
+
+                if (aceptado) {
+                    System.out.println("Aceptado");
+                } else {
+                    System.out.println("NO Aceptado");
+                }
+
+                /*
+                for(int i=0;i<palabras.length()-1;i++){
+                    pila.push(String.valueOf(palabras.charAt(i)));
+                    for(int j=0;j<tabla.get("digito").length()-1;j++){
+                            if(Integer.parseInt(pila.peek())==j){
+                                System.out.println(pila.pop());
+                            }
+                            else
+                                    i=palabras.length();
+                    }
+                }*/
+            }
+        }
+        );
+
+        Scene scene = new Scene(grid, 400, 400);
+
+        primaryStage.setTitle(
+                "Hello World!");
+        primaryStage.setScene(scene);
+
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}

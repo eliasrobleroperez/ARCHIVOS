@@ -1,0 +1,45 @@
+import javax.swing.JOptionPane;
+
+public class Captura3 {
+
+ public static void main(String args[]){
+  //Declaramos las variables donde se van a capturar los datos
+  String nombre;
+  int edad;
+  double estatura;
+  //Esta es una variable llamada auxiliar que nos va a permitir 
+  //almacenar temporalmente los valores enteros y dobles puesto
+  //que estos seran convertidos despues y almacenados en variables
+  //de su respectivo tipo
+  String auxiliar;
+  
+  //Esta es la forma de mostrar un mensaje se pone el nombre de la clase
+  //luego se invoca al metodo showMessageDialog() este recibe dos parametros
+  //el primero es null , el segundo es una cadena con el mensaje
+  JOptionPane.showMessageDialog(null,"Programa para capturar datos");
+  
+  //Este es el metodo de entrada showInputDialog y solo recibe un parametro
+  //la cadena a escribir, lo que se esta haciendo es una asignacion
+  //debido a que lo que se introduzca en el cuadro de texto que aparecera
+  //se tiene que guardar en algun lugar
+  nombre=JOptionPane.showInputDialog("Introduce nombre: ");
+  
+  //En este caso lo asignamos a la variable auxiliar, que luego convertiremos
+  auxiliar=JOptionPane.showInputDialog("Introduce edad: ");
+  //aqui se convierte a entero lo que este guardado en la variable auxiliar
+  edad=Integer.parseInt(auxiliar);
+  //se pide la estatura y se guarda en auxiliar sustituyendo el valor anterior
+  auxiliar=JOptionPane.showInputDialog("Introduce estatura: ");
+  //luego solo se convierte a double
+  estatura=Double.parseDouble(auxiliar);
+  
+  //Al final simplemente mandamos los mensajes con los valores introducidos
+  JOptionPane.showMessageDialog(null, "Tu nombre es: "+nombre);
+  JOptionPane.showMessageDialog(null, "Tu edad es: "+edad);
+  JOptionPane.showMessageDialog(null, "Tu estatura es: "+estatura);
+  //Los mensajes anteriores se pueden resumir en un solo mensaje haciendo lo siguiente
+  String mensaje="Tu nombre es: "+nombre+"\nTu edad es: "+edad+"\nTu estatura es: "+estatura;
+  JOptionPane.showMessageDialog(null,mensaje);
+ }
+ 
+}

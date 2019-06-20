@@ -1,0 +1,17 @@
+importar datos en mysql
+
+mysql basededatos < archivo
+user:
+
+pwd:
+
+
+root es el usuario
+no conexion: mysql -uroot -p basededatos < archivo
+password: 
+
+
+
+
+HERRAMIENTA  HEIDI.SQL
+
